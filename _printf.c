@@ -1,85 +1,50 @@
 #include "main.h"
-#include <stdarg.h>
-#include <stdlib.h>
-
 
 /**
- * _formatspec - ...
- * @str: string
- * @args: Argument List
- * Return: int
+ * _printf - a function that produces output according to a format and argument
+ * @format: string containing the regular chars and format specifiers to print
+ *
+ * Return: the total number of characters printed
  */
-
-
-int _formatspec(va_list args, const char *str);
-
-/**
- * _printf - ...
- * @format: Input String
- * @...: Arguments
- * Return: int
- */
-
 int _printf(const char *format, ...)
 {
-	va_list args;
-	const char *str;
-	int i = 0;
-	int count = 0;
+	/* Declare a variable list, with its own argument(begins at va_start) */
+	va_list list;
+	int i = 0, count = 0;
+	/* a function pointer, that accepts va_list as argument */
+	int (*ptr_func)(va_list);
 
-	va_start(args, format);
-	if (format == NULL)
-	{
+	/* Returns -1 if format is null */
+	if (!format || (format[i] == '%' && format[i + 1] == '\0'))
 		return (-1);
-	}
+	if (!format[i])
+		return (0);
 
-	for (str = format; *str != '\0'; str++)
+	va_start(list, format);
+	for (i = 0; format[i] != '\0'; i++)
 	{
-		if (*str != '%')
+		if (format[i] == '%')
 		{
-			_putchar(*str);
-			i++;
-			continue;
+			if (format[i + 1] == '\0')
+				return (-1);
+
+			ptr_func = get_func(format, i + 1);
+			if (ptr_func == NULL)
+			{
+				_putchar('%');
+				count++;
+			}
+			else
+			{
+				count += ptr_func(list);
+				i++;
+			}
 		}
-		count = i;
-		if (*str == '%')
+		else
 		{
-			str++;
-			_formatspec(args, str);
+			_putchar(format[i]);
+			count++;
 		}
 	}
-	va_end(args);
 	return (count);
-}
-
-/**
- * _formatspec - ...
- * @str: string
- * @args: Argument List
- * Return: int
- */
-
-int _formatspec(va_list args, const char *str)
-{
-	if (*str == 'c')
-	{
-		int c = va_arg(args, int);
-
-		_putchar(c);
-	}
-	else if (*str == 's')
-	{
-		char *s = va_arg(args, char *);
-
-		while (*s != '\0')
-		{
-			_putchar(*s);
-			s++;
-		}
-	}
-	else if (*str == '%')
-	{
-		_putchar(37);
-	}
-	return (0);
 }
