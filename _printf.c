@@ -2,14 +2,23 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
+
+/**
+ * _formatspec - ...
+ * @str: string
+ * @args: Argument List
+ * Return: int
+ */
+
+
+int _formatspec(va_list args, const char *str);
+
 /**
  * _printf - ...
  * @format: Input String
  * @...: Arguments
  * Return: int
  */
-
-int _formatspec(va_list args, const char *str);
 
 int _printf(const char *format, ...)
 {
@@ -45,7 +54,8 @@ int _printf(const char *format, ...)
 
 /**
  * _formatspec - ...
- * @str: String
+ * @str: string
+ * @args: Argument List
  * Return: int
  */
 
