@@ -1,28 +1,23 @@
 #include "main.h"
+#include <stdlib.h>
 
-/**
- * print_str - prints a string using a loop that also counts the characters
- * @args: arguments
- *
- * Return: count
- */
+
 int print_str(va_list args)
 {
 	int i;
-	char *str;
-	char null[] = "(null)";
+	char *s = va_arg(args, char*);
 
-	str = va_arg(args, char *);
-	if (str == NULL)
+	if (s == NULL)
 	{
-		for (i = 0; null[i] != '\0'; i++)
-			_putchar(null[i]);
-		return (6);
+		return -1;
 	}
-
-	for (i = 0; str[i] != '\0'; i++)
+	else if (*s == '\0')
 	{
-		_putchar(str[i]);
+		return (-1);
+	}
+	for (i = 0; s[i] != '\0'; i++)
+	{
+		_putchar(s[i]);
 	}
 	return (i);
 }

@@ -1,50 +1,57 @@
 #include "main.h"
-
 /**
  * _printf - a function that produces output according to a format and argument
  * @format: string containing the regular chars and format specifiers to print
  *
  * Return: the total number of characters printed
  */
+
 int _printf(const char *format, ...)
 {
-	/* Declare a variable list, with its own argument(begins at va_start) */
-	va_list list;
-	int i = 0, count = 0;
-	/* a function pointer, that accepts va_list as argument */
-	int (*ptr_func)(va_list);
+	int i;
+	int count = 0;
+	int value = 0;
+	va_list args;
+	int (*f)(va_list);
+	va_start(args, format);
 
-	/* Returns -1 if format is null */
-	if (!format || (format[i] == '%' && format[i + 1] == '\0'))
+	if (format == NULL)
+	{
 		return (-1);
-	if (!format[i])
-		return (0);
+	}
 
-	va_start(list, format);
 	for (i = 0; format[i] != '\0'; i++)
 	{
+		if (format[i] != '%')
+		{
+			value = _putchar(format[i]);
+			count += value;
+			continue;
+		}
 		if (format[i] == '%')
 		{
-			if (format[i + 1] == '\0')
-				return (-1);
+      			f = check_specifiers(&format[i]);
+			if (f != NULL)
+			{
+				value = f(args);
+				count += value;
+				continue;
 
-			ptr_func = get_func(format, i + 1);
-			if (ptr_func == NULL)
-			{
-				_putchar('%');
-				count++;
 			}
-			else
+			/*if (format[i + 1] == '\0')
 			{
-				count += ptr_func(list);
+				break;
+				}*/
+			/*if (format[i + 1] != '\0')
+			{
+				_putchar(format[i]);
+				count += value;
 				i++;
-			}
+				continue;
+				}*/
 		}
-		else
-		{
-			_putchar(format[i]);
-			count++;
-		}
+
 	}
-	return (count);
+va_end(args);
+return(count);
 }
