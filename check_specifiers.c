@@ -9,9 +9,14 @@ int (*check_specifiers(const char *format))(va_list)
 {
 	int i;
 
-	func_t specifiers[4] =
+	func_t specifiers[] =
 	{
 		{"c", print_char},
+		{"s", print_str},
+		{"%", print_cent},
+		{"d", print_int},
+		{"i", print_int},
+		{"b", print_bin},
 		{NULL, NULL}
 	};
 

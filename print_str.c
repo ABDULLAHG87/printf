@@ -4,7 +4,7 @@
 
 int print_str(va_list args)
 {
-	int i;
+	int j;
 	char *s = va_arg(args, char*);
 
 	if (s == NULL)
@@ -15,9 +15,9 @@ int print_str(va_list args)
 	{
 		return (-1);
 	}
-	for (i = 0; s[i] != '\0'; i++)
+	for (j = 0; s[j] != '\0'; j++)
 	{
-		_putchar(s[i]);
+		_putchar(s[j]);
 	}
-	return (i);
+	return (j);
 }

@@ -8,50 +8,44 @@
 
 int _printf(const char *format, ...)
 {
-	int i;
-	int count = 0;
+	int i = 0, count = 0;
 	int value = 0;
 	va_list args;
 	int (*f)(va_list);
+
 	va_start(args, format);
-
 	if (format == NULL)
-	{
 		return (-1);
-	}
-
-	for (i = 0; format[i] != '\0'; i++)
+	while (format[i])
 	{
 		if (format[i] != '%')
 		{
 			value = _putchar(format[i]);
 			count += value;
+			i++;
 			continue;
 		}
 		if (format[i] == '%')
 		{
-      			f = check_specifiers(&format[i]);
+			f = check_specifiers(&format[i + 1]);
 			if (f != NULL)
 			{
 				value = f(args);
 				count += value;
+				i = i + 2;
 				continue;
-
 			}
-			/*if (format[i + 1] == '\0')
-			{
+			if (format[i + 1] == '\0')
 				break;
-				}*/
-			/*if (format[i + 1] != '\0')
+			if (format[i + 1] != '\0')
 			{
 				_putchar(format[i]);
 				count += value;
-				i++;
+				i = i + 2;
 				continue;
-				}*/
+			}
 		}
-
 	}
 va_end(args);
-return(count);
+return (count);
 }

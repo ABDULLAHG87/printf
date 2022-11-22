@@ -14,6 +14,8 @@ int print_str(va_list);
 int print_char(va_list);
 int print_cent(va_list);
 int _putchar(char c);
+int print_int(va_list);
+int print_bin(va_list);
 /*Definition of Structure to Handle Conversion Specifiers */
 /**
  * struct func - structure definition for conversion specifier
