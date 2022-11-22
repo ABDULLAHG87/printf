@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * print_unsigned_HEX - prints an unsigned hexadecimal
+ * print_hex - prints an unsigned hexadecimal
  * @args: arguments
  *
  * prints an hexadecimal number from an int by continously dividing it by 16

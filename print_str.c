@@ -1,6 +1,12 @@
 #include "main.h"
 #include <stdlib.h>
 
+/**
+ * print_str - ...
+ * @args: ...
+ * Return: int
+ */
+
 
 int print_str(va_list args)
 {
@@ -9,7 +15,7 @@ int print_str(va_list args)
 
 	if (s == NULL)
 	{
-		return -1;
+		return (-1);
 	}
 	else if (*s == '\0')
 	{

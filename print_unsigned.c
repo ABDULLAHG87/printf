@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * print_unsigned - prints an unsigned int.
+ * print_unsigned_int - prints an unsigned int.
  * @args: Variadic argument
  * Return: 0
  */

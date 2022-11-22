@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_percent - prints a % character
+ * print_cent - prints a % character
  * @args: arguments (unused)
  *
  * Return: 1

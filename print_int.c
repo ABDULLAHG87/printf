@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_number - prints an integer number using an array
+ * print_int - prints an integer number using an array
  * @args: arguments
  *
  * Return: count

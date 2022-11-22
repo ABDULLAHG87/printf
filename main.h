@@ -16,6 +16,8 @@ int print_char(va_list);
 int print_cent(va_list);
 int _putchar(char c);
 int print_int(va_list);
+int print_long_int(va_list);
+int print_short_int(va_list);
 int print_unsigned_int(va_list);
 int print_bin(va_list);
 int print_long_octal(va_list);
@@ -24,7 +26,10 @@ int print_hash_octal(va_list);
 int print_hex(va_list);
 int print_STR(va_list);
 int print_HEX(long int num, unsigned int size, unsigned int type);
+int print_rev(va_list);
+int print_rot13(va_list);
 int print_addr(va_list);
+
 /*Definition of Structure to Handle Conversion Specifiers */
 /**
  * struct func - structure definition for conversion specifier
