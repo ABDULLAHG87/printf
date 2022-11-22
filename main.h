@@ -22,6 +22,8 @@ int print_long_octal(va_list);
 int print_octal(va_list);
 int print_hash_octal(va_list);
 int print_hex(va_list);
+int print_STR(va_list);
+int print_HEX(long int num, unsigned int size, unsigned int type);
 /*Definition of Structure to Handle Conversion Specifiers */
 /**
  * struct func - structure definition for conversion specifier
