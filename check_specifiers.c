@@ -25,6 +25,7 @@ int (*check_specifiers(const char *format))(va_list)
 		{"x", print_hex},
 		{"X", print_hex},
 		{"S", print_STR},
+		{"p", print_addr},
 		/*{"lX", print_long_unsigned_HEX},
 		{"hX", print_short_unsigned_HEX},
 		{"#x", print_hash_hex},
