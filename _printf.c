@@ -27,6 +27,11 @@ int _printf(const char *format, ...)
 		}
 		if (format[i] == '%')
 		{
+			print_buffer(buffer, &buff_ind);
+			flags = get_flags(format, &i);
+			width = get_width(format, &i, list);
+			precision = get_precision(format, &i, list);
+			size = get_size(format, &i);
 			f = check_specifiers(&format[i + 1]);
 			if (f != NULL)
 			{

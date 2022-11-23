@@ -29,6 +29,15 @@ int print_HEX(long int num, unsigned int size, unsigned int type);
 int print_rev(va_list);
 int print_rot13(va_list);
 int print_addr(va_list);
+int get_flags(const char *format, int *i);
+int get_precision(const char *format, int *i, va_list list);
+int get_size(const char *format, int *i);
+int get_width(const char *format, int *i, va_list list);
+int is_printable(char c);
+int append_hexa_code(char ascii_code, char buffer[], int i);
+int is_digit(char c);
+long int convert_size_number(long int num, int size);
+long int convert_size_unsgnd(unsigned long int num, int size);
 
 /*Definition of Structure to Handle Conversion Specifiers */
 /**
@@ -41,6 +50,6 @@ typedef struct func
 {
 	char *t;
 	int (*f)(va_list);
-}func_t;
+} func_t;
 
 #endif

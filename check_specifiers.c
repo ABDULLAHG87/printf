@@ -5,11 +5,10 @@
  * @format: format string
  * Return: Pointers
  */
-
 int (*check_specifiers(const char *format))(va_list)
 {
 	int i;
-
+	/* fns is a struct array containing the specifier and its function */
 	func_t specifiers[] = {
 		{"c", print_char},
 		{"s", print_str},
@@ -21,8 +20,8 @@ int (*check_specifiers(const char *format))(va_list)
 		{"b", print_bin},
 		{"u", print_unsigned_int},
 		{"o", print_octal},
-		{"#o", print_hash_octal}
-		{"lo", print_long_octal}
+		{"#o", print_hash_octal},
+		{"lo", print_long_octal},
 		{"ho", print_short_octal},
 		{"x", print_hex},
 		{"X", print_hex},
