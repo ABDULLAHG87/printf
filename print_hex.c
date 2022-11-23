@@ -10,18 +10,17 @@
  */
 int print_hex(va_list args)
 {
-	unsigned int p, num, hex[100];
+	unsigned int p, hex[100];
 	int r;
 
 	/* va_arg calls the argument provided and passes it as unsigned int */
-	num = va_arg(args, unsigned int);
+	unsigned int num = va_arg(args, unsigned int);
 
 	if (num == 0)
 	{
 		_putchar('0');
 		return (1);
 	}
-
 	for (p = 0; num != 0; p++)
 	{
 		hex[p] = num % 16;
@@ -37,7 +36,7 @@ int print_hex(va_list args)
 		}
 		else
 		{
-			_putchar((hex[r] % 10) + 'A');
+			_putchar((hex[r] % 10) + 'a');
 		}
 	}
 
