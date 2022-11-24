@@ -1,4 +1,4 @@
-This project is based on printf project(done by Gift Omokpamwan and Abdulhakeem Abdullahi)
+### This project is based on printf project(done by Gift Omokpamwan and Abdulhakeem Abdullahi)
 # The awesome _printf() function
 
 _printf - formatted output conversion
