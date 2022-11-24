@@ -1,29 +1,45 @@
 #include "main.h"
 
+/************************* PRINT REVERSE *************************/
 /**
- * print_rev - prints a string n reverse and also counts the characters
- * @args: arguments
- *
- * Return: count
+ * print_reverse - Prints reverse string.
+ * @types: Lista of arguments
+ * @buffer: Buffer array to handle print
+ * @flags:  Calculates active flags
+ * @width: get width
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: Numbers of chars printed
  */
-int print_rev(va_list args)
-{
-	int i, j;
-	char *str;
-	char null[] = "(null)";
 
-	str = va_arg(args, char *);
+int print_reverse(va_list types, char buffer[],
+	int flags, int width, int precision, int size)
+{
+	char *str;
+	int i, count = 0;
+
+	UNUSED(buffer);
+	UNUSED(flags);
+	UNUSED(width);
+	UNUSED(size);
+
+	str = va_arg(types, char *);
+
 	if (str == NULL)
 	{
-		for (i = 0; null[i] != '\0'; i++)
-			_putchar(null[i]);
-		return (6);
+		UNUSED(precision);
+
+		str = ")Null(";
 	}
-
-	for (i = 0; str[i] != '\0'; i++)
+	for (i = 0; str[i]; i++)
 		;
-	for (j = i - 1; j >= 0; j--)
-		_putchar(str[j]);
 
-	return (i);
+	for (i = i - 1; i >= 0; i--)
+	{
+		char z = str[i];
+
+		write(1, &z, 1);
+		count++;
+	}
+	return (count);
 }

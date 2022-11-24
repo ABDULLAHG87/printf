@@ -1,51 +1,53 @@
 #include "main.h"
 
+/************************* PRINT A STRING IN ROT13 *************************/
 /**
- * print_rot13 - prints a rot13'd string, non letetrs are left as is
- * @args: arguments
- *
- * Return: count(i)
+ * print_rot13string - Print a string in rot13.
+ * @types: Lista of arguments
+ * @buffer: Buffer array to handle print
+ * @flags:  Calculates active flags
+ * @width: get width
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: Numbers of chars printed
  */
-int print_rot13(va_list args)
+int print_rot13string(va_list types, char buffer[],
+	int flags, int width, int precision, int size)
 {
-	int i, r;
+	char x;
 	char *str;
-	char org[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	char rot[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
-	char *rot13;
+	unsigned int i, j;
+	int count = 0;
+	char in[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	char out[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
 
-	str = va_arg(args, char *);
-	rot13 = malloc(sizeof(char) * (strlen(str) + 1));
-	if (rot13 == NULL)
-	{
-		return (0);
-	}
+	str = va_arg(types, char *);
+	UNUSED(buffer);
+	UNUSED(flags);
+	UNUSED(width);
+	UNUSED(precision);
+	UNUSED(size);
 
-	for (i = 0; str[i] != '\0'; i++)
+	if (str == NULL)
+		str = "(AHYY)";
+	for (i = 0; str[i]; i++)
 	{
-		if ((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122))
+		for (j = 0; in[j]; j++)
 		{
-			for (r = 0; org[r] != '\0'; r++)
+			if (in[j] == str[i])
 			{
-				if (str[i] == org[r])
-				{
-					rot13[i] = rot[r];
-					break;
-				}
+				x = out[j];
+				write(1, &x, 1);
+				count++;
+				break;
 			}
 		}
-		else
+		if (!in[j])
 		{
-			rot13[i] = str[i];
+			x = str[i];
+			write(1, &x, 1);
+			count++;
 		}
 	}
-	rot13[i] = '\0';
-
-	for (i = 0; rot13[i] != '\0'; i++)
-	{
-		_putchar(rot13[i]);
-	}
-
-	free(rot13);
-	return (i);
+	return (count);
 }

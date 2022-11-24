@@ -1,56 +1,46 @@
 #include "main.h"
-/**
- * _printf - a function that produces output according to a format and argument
- * @format: string containing the regular chars and format specifiers to print
- *
- * Return: the total number of characters printed
- */
 
+/**
+ * _printf - Printf function
+ * @format: format.
+ * Return: Printed chars.
+ */
 int _printf(const char *format, ...)
 {
-	int i = 0, count = 0;
-	int value = 0;
-	va_list args;
-	int (*f)(va_list);
+	int i, printed = 0, printed_chars = 0;
+	int flags, width, precision, size, buff_index = 0;
+	va_list list;
+	char buffer[BUFF_SIZE];
 
-	va_start(args, format);
 	if (format == NULL)
 		return (-1);
-	while (format[i])
+	va_start(list, format);
+	for (i = 0; format && format[i] != '\0'; i++)
 	{
 		if (format[i] != '%')
 		{
-			value = _putchar(format[i]);
-			count += value;
-			i++;
-			continue;
+			buffer[buff_index++] = format[i];
+			if (buff_index == BUFF_SIZE)
+				print_buffer(buffer, &buff_index);
+			/* write(1, &format[i], 1);*/
+			printed_chars++;
 		}
-		if (format[i] == '%')
+		else
 		{
-			print_buffer(buffer, &buff_ind);
+			print_buffer(buffer, &buff_index);
 			flags = get_flags(format, &i);
 			width = get_width(format, &i, list);
 			precision = get_precision(format, &i, list);
 			size = get_size(format, &i);
-			f = check_specifiers(&format[i + 1]);
-			if (f != NULL)
-			{
-				value = f(args);
-				count += value;
-				i = i + 2;
-				continue;
-			}
-			if (format[i + 1] == '\0')
-				break;
-			if (format[i + 1] != '\0')
-			{
-				_putchar(format[i]);
-				count += value;
-				i = i + 2;
-				continue;
-			}
+			++i;
+			printed = handle_print(format, &i, list, buffer,
+				flags, width, precision, size);
+			if (printed == -1)
+				return (-1);
+			printed_chars += printed;
 		}
 	}
-va_end(args);
-return (count);
+	print_buffer(buffer, &buff_index);
+	va_end(list);
+	return (printed_chars);
 }

@@ -1,125 +1,80 @@
 #include "main.h"
 
+/************************* PRINT INT *************************/
 /**
- * print_int - prints an integer number using an array
- * @args: arguments
- *
- * Return: count
+ * print_int - Print int
+ * @types: Lista of arguments
+ * @buffer: Buffer array to handle print
+ * @flags:  Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: Number of chars printed
  */
-int print_int(va_list args)
+int print_int(va_list types, char buffer[],
+	int flags, int width, int precision, int size)
 {
-	int num;
-	unsigned int num_t, temp, i, div = 1, count = 0;
+	int i = BUFF_SIZE - 2;
+	int is_negative = 0;
+	long int n = va_arg(types, long int);
+	unsigned long int num;
 
-	num = va_arg(args, int);
-	if (num < 0)
-	{
-		num_t = num * -1;
-		_putchar('-');
-		count++;
-	}
-	else
-	{
-		num_t = num;
-	}
+	n = convert_size_number(n, size);
 
-	temp = num_t;
+	if (n == 0)
+		buffer[i--] = '0';
 
-	while (temp > 9)
+	buffer[BUFF_SIZE - 1] = '\0';
+	num = (unsigned long int)n;
+
+	if (n < 0)
 	{
-		div *= 10;
-		temp /= 10;
+		num = (unsigned long int)((-1) * n);
+		is_negative = 1;
 	}
 
-	for (i = 0; div > 0; div /= 10, i++, count++)
+	while (num > 0)
 	{
-		_putchar(((num_t / div) % 10) + '0');
+		buffer[i--] = (num % 10) + '0';
+		num /= 10;
 	}
-	return (count);
+
+	i++;
+
+	return (write_number(is_negative, i, buffer, flags, width, precision, size));
 }
 
+/************************* PRINT UNSIGNED NUMBER *************************/
 /**
- * print_plus_number - prints an integer number using an array
- * @args: arguments
- *
- * Return: count
+ * print_unsigned - Prints an unsigned number
+ * @types: List a of arguments
+ * @buffer: Buffer array to handle print
+ * @flags:  Calculates active flags
+ * @width: get width
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: Number of chars printed.
  */
-int print_plus_number(va_list args)
+int print_unsigned(va_list types, char buffer[],
+	int flags, int width, int precision, int size)
 {
-	int num;
-	unsigned int num_t, temp, i, div = 1, count = 0;
+	int i = BUFF_SIZE - 2;
+	unsigned long int num = va_arg(types, unsigned long int);
 
-	num = va_arg(args, int);
-	if (num < 0)
-	{
-		num_t = num * -1;
-		_putchar('-');
-		count++;
-	}
-	else
-	{
-		num_t = num;
-	}
+	num = convert_size_unsgnd(num, size);
 
-	temp = num_t;
+	if (num == 0)
+		buffer[i--] = '0';
 
-	while (temp > 9)
+	buffer[BUFF_SIZE - 1] = '\0';
+
+	while (num > 0)
 	{
-		div *= 10;
-		temp /= 10;
+		buffer[i--] = (num % 10) + '0';
+		num /= 10;
 	}
 
-	if (count == 0)
-	{
-		_putchar('+');
-		count++;
-	}
-	for (i = 0; div > 0; div /= 10, i++, count++)
-	{
-		_putchar(((num_t / div) % 10) + '0');
-	}
-	return (count);
-}
+	i++;
 
-/**
- * print_space_number - prints an integer number using an array
- * @args: arguments
- *
- * Return: count
- */
-int print_space_number(va_list args)
-{
-	int num;
-	unsigned int num_t, temp, i, div = 1, count = 0;
-
-	num = va_arg(args, int);
-	if (num < 0)
-	{
-		num_t = num * -1;
-		_putchar('-');
-		count++;
-	}
-	else
-	{
-		num_t = num;
-	}
-
-	temp = num_t;
-
-	while (temp > 9)
-	{
-		div *= 10;
-		temp /= 10;
-	}
-	if (count == 0)
-	{
-		_putchar(' ');
-		count++;
-	}
-
-	for (i = 0; div > 0; div /= 10, i++, count++)
-	{
-		_putchar(((num_t / div) % 10) + '0');
-	}
-	return (count);
+	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
 }
